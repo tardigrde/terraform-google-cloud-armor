@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 1.3.0"
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 7.17, < 8"
-    }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = ">= 7.17, < 8"
-    }
-  }
-  provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-cloud-armor/v8.2.0"
-  }
-  provider_meta "google-beta" {
-    module_name = "blueprints/terraform/terraform-google-cloud-armor/v8.2.0"
-  }
+output "policy_id" {
+  description = "The ID of the organization security policy"
+  value       = module.folder_security_policy.policy_id
+}
+
+output "policy_name" {
+  description = "The name of the organization security policy"
+  value       = module.folder_security_policy.policy.short_name
 }
