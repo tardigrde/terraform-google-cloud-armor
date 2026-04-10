@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2026 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-output "project_id" {
-  value = module.project.project_id
+variable "org_id" {
+  description = "The numeric organization ID"
+  type        = string
 }
 
-output "org_id" {
-  value = var.org_id
+variable "folder_id" {
+  description = "The folder ID to associate the policy with"
+  type        = string
 }
 
-output "sa_key" {
-  value     = google_service_account_key.int_test.private_key
-  sensitive = true
+variable "exempt_project_id" {
+  description = "Project ID to exclude from the policy association"
+  type        = string
 }

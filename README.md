@@ -16,6 +16,8 @@ There are `five` type of rules you can create in each policy:
 
 **NOTE:** For `Regional external Application Load Balancer` and `Regional internal Application Load Balancer` create [Regional Backend Security policy](https://cloud.google.com/armor/docs/security-policy-overview#expandable-2) using [regional backend security policy sub-module](./modules/regional-backend-security-policy/).
 
+**NOTE:** For organization-wide or folder-level security policies, use the [hierarchical security policy sub-module](./modules/hierarchical-security-policy/). Hierarchical security policies extend Cloud Armor protection beyond individual projects and are attached at the organization, folder, or project level.
+
 ## Compatibility
 
 This module is meant for use with Terraform 1.3+ and tested using Terraform 1.3+. If you find incompatibilities using Terraform >=1.3, please open an issue.
