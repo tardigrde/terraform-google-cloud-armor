@@ -1,5 +1,5 @@
 /**
- * Copyright 2025 Google LLC
+ * Copyright 2026 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,11 @@
 variable "parent" {
   description = "The parent of this OrganizationSecurityPolicy in the Cloud Resource Hierarchy. Format: 'organizations/{organization_id}' or 'folders/{folder_id}'"
   type        = string
+
+  validation {
+    condition     = can(regex("^(organizations|folders)/[0-9]+$", var.parent))
+    error_message = "Parent must be in the format 'organizations/{id}' or 'folders/{id}' where id is numeric."
+  }
 }
 
 variable "name" {
@@ -34,6 +39,11 @@ variable "type" {
   description = "The type indicates the intended use of the security policy. Possible values: CLOUD_ARMOR, CLOUD_ARMOR_EDGE, CLOUD_ARMOR_INTERNAL_SERVICE, CLOUD_ARMOR_NETWORK."
   type        = string
   default     = "CLOUD_ARMOR"
+
+  validation {
+    condition     = contains(["CLOUD_ARMOR", "CLOUD_ARMOR_EDGE", "CLOUD_ARMOR_INTERNAL_SERVICE", "CLOUD_ARMOR_NETWORK"], var.type)
+    error_message = "Type must be one of: CLOUD_ARMOR, CLOUD_ARMOR_EDGE, CLOUD_ARMOR_INTERNAL_SERVICE, CLOUD_ARMOR_NETWORK."
+  }
 }
 
 variable "security_rules" {
@@ -89,7 +99,7 @@ variable "threat_intelligence_rules" {
 }
 
 variable "association" {
-  description = "Association configuration to attach policy to an organization, folder, or project. If provided, association is created within the module. Set to null to manage associations outside the module using the policy_id output. IMPORTANT: When you attach a hierarchical security policy, all projects that inherit the policy will be automatically enrolled in Cloud Armor Enterprise. See: https://cloud.google.com/armor/docs/hierarchical-policies-overview#enrollment"
+  description = "Association configuration to attach policy to an organization, folder, or project. If provided, association is created within the module. Set to null to manage associations outside the module using the policy_id output. IMPORTANT: When you attach a hierarchical security policy, all projects that inherit the policy will be automatically enrolled in Cloud Armor Enterprise. See: https://cloud.google.com/armor/docs/hierarchical-policies-overview#enrollment. Note: excluded_folders is only valid when attachment_id points to an organization; it will be rejected by the API for folder-level attachments."
   type = object({
     name              = optional(string)
     attachment_id     = string

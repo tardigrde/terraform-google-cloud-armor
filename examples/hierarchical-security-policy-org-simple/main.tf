@@ -1,5 +1,5 @@
 /**
- * Copyright 2025 Google LLC
+ * Copyright 2026 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ resource "random_id" "suffix" {
 
 module "hierarchical_security_policy" {
   source  = "GoogleCloudPlatform/cloud-armor/google//modules/hierarchical-security-policy"
-  version = "~> 8.2"
+  version = "~> 8.0"
 
   parent      = "organizations/${var.org_id}"
   name        = "org-denylist-policy-${random_id.suffix.hex}"

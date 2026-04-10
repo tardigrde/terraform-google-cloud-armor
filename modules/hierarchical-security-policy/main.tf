@@ -1,5 +1,5 @@
 /**
- * Copyright 2025 Google LLC
+ * Copyright 2026 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ locals {
 
   threat_intelligence_expr = {
     for name, rule in var.threat_intelligence_rules : name => {
-      expression = rule.exclude_ip == null ? "evaluateThreatIntelligence('${rule.feed}')" : "evaluateThreatIntelligence('${rule.feed}', ${rule.exclude_ip})"
+      expression = rule.exclude_ip == null ? "evaluateThreatIntelligence('${rule.feed}')" : "evaluateThreatIntelligence('${rule.feed}', '${rule.exclude_ip}')"
     }
   }
 }
